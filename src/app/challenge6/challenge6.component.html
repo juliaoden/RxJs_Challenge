@@ -1,0 +1,17 @@
+<p>This is a really small cinema!</p>
+<p>Let users pick seats and count them in <i>selected</i> counter.</p>
+<p>Hide seats and show the final cost after user clicks <i>buy</i> button.</p>
+
+<h3>Choose your seats</h3>
+
+<section class="cinema">
+  <button *tuiRepeatTimes="let index of 10" class="seat" (click)="seatChosen()">
+    {{ index + 1 }}
+  </button>
+</section>
+
+Selected: {{ seatCounter }}
+
+<button class="buy" (click)="buySeats()">Buy</button>
+
+<section *ngIf="buying" class="final-cost">{{ text }}</section>
