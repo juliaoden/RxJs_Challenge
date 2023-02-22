@@ -10,19 +10,26 @@ import { Challenge4Component } from './challenge4/challenge4.component';
 import { Challenge5Component } from './challenge5/challenge5.component';
 import { Challenge6Component } from './challenge6/challenge6.component';
 import { Challenge7Component } from './challenge7/challenge7.component';
+import { Challenge10Component } from './challenge10/challenge10.component';
+import { Challenge12Component } from './challenge12/challenge12.component';
+import { PortalComponent } from './challenge12/portal/portal.component';
+import { ModalService } from './challenge12/modal.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    PortalComponent,
     Challenge1Component,
     Challenge2Component,
     Challenge4Component,
     Challenge5Component,
     Challenge6Component,
     Challenge7Component,
+    Challenge10Component,
+    Challenge12Component,
   ],
   imports: [BrowserModule, FormsModule, TuiRepeatTimesModule],
-  providers: [],
+  providers: [ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

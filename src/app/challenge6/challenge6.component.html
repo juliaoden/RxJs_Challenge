@@ -10,8 +10,9 @@
   </button>
 </section>
 
-Selected: {{ seatCounter }}
+<p id="selected">Selected: {{ seatCounter }}</p>
 
-<button class="buy" (click)="buySeats()">Buy</button>
 
-<section *ngIf="buying" class="final-cost">{{ text }}</section>
+<button class="buy" id="btn" (click)="buying$">Buy</button>
+
+<section class="final-cost" id="final-cost"></section>

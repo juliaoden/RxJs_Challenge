@@ -1,0 +1,7 @@
+<app-portal>
+    <input #text value="hello" />
+
+    <button (click)="modal$$.next(text.value)">
+        Open modal
+    </button>
+</app-portal>

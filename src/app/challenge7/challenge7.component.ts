@@ -1,9 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
 import {
+  debounceTime,
   distinctUntilChanged,
   fromEvent,
   map,
   Observable,
+  pairwise,
+  startWith,
   Subject,
   take,
   takeUntil,
@@ -16,5 +19,20 @@ import {
   styleUrls: ['./challenge7.component.css'],
 })
 export class Challenge7Component {
-  constructor() {}
+  initialY = 0;
+  constructor() {
+    fromEvent(document, 'scroll')
+      .pipe(
+        map(() => document.documentElement.scrollTop),
+        tap((el) => {
+          const newY = el;
+          document
+            .querySelector('header')
+            ?.classList.toggle('hidden', this.initialY < newY);
+          this.initialY = newY;
+        }),
+        distinctUntilChanged()
+      )
+      .subscribe();
+  }
 }

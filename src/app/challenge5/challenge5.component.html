@@ -2,7 +2,7 @@
 <!-- <p *ngIf="timeOver">
 <button  (click)="countTime()">Resend code</button>
 </p> -->
-<p *ngIf="!timerFinished">Code can be resended in {{ timerValue }} second(s)</p>
+<p *ngIf="!timerFinished">Code can be resended in {{ timer$ }} second(s)</p>
 <p>
   <button *ngIf="timerFinished" (click)="onButtonClick()">Resend code</button>
 </p>
