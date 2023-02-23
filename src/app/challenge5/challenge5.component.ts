@@ -1,5 +1,17 @@
 import { Component, NgModule } from '@angular/core';
-import { map, Observable, range, take, takeWhile, tap, timer } from 'rxjs';
+import {
+  filter,
+  isObservable,
+  map,
+  Observable,
+  pipe,
+  range,
+  Subject,
+  take,
+  takeWhile,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
   selector: 'app-challenge5',
@@ -8,39 +20,37 @@ import { map, Observable, range, take, takeWhile, tap, timer } from 'rxjs';
 })
 // @NgModule({ declarations: [timer$] })
 export class Challenge5Component {
+  // timer$ = new Subject<any>();
   timerValue = 10;
-  timerFinished = false;
+
   timer$ = timer(0, 1000).pipe(
     map((i) => this.timerValue - i),
     take(this.timerValue + 1),
-    tap((number) => number)
+    tap((e) => console.log(e))
   );
 
-  constructor() {
-    this.startTimer();
-    // this.countTime()
-    this.timer$.subscribe(console.log);
-  }
+  isVisible$ = this.timer$.pipe(
+    filter((num) => num != 0),
+    map((num) => num >= 0),
+    tap((e) => console.log(e))
+  );
 
   startTimer() {
-    const timer$ = timer(0, 1000).pipe(
-      map((i) => this.timerValue - i),
-      take(this.timerValue + 1)
-    );
-    /*tap((number) => {
+    //this.isVisible$.subscribe(console.log);
+  }
+  /*tap((number) => {
         this.timerValue--;
         if (this.timerValue == 0) this.timerFinished = true;
       })
     );*/
 
-    //timer$.subscribe(console.log);
-  }
+  //timer$.subscribe(console.log);
 
-  onButtonClick() {
-    this.timerFinished = false;
-    this.timerValue = 10;
-    this.startTimer();
-  }
+  // onButtonClick() {
+  //   this.timerFinished = false;
+  //   this.timerValue = 10;
+  //   this.startTimer();
+  // }
 
   /*countTime(){
     this.timeOver = false

@@ -1,8 +1,10 @@
 <p>Create a countdown and a button to restart it</p>
 <!-- <p *ngIf="timeOver">
-<button  (click)="countTime()">Resend code</button>
+<button  (click)="countTime()">Resend code</button> 
 </p> -->
-<p *ngIf="!timerFinished">Code can be resended in {{ timer$ }} second(s)</p>
+<!-- <p *ngIf="timer$ | async as timer ; else #button">Code can be resended in {{ timer }} second(s)</p>
 <p>
-  <button *ngIf="timerFinished" (click)="onButtonClick()">Resend code</button>
-</p>
+  <button #button (click)="onButtonClick()">Resend code</button>
+</p> -->
+<p *ngIf="isVisible$ | async; else button">Code can be resended in {{ timer$ | async }} second(s)</p>
+<ng-template #button><button (click)="startTimer()">Resend code</button> </ng-template>
