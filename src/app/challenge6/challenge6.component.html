@@ -10,7 +10,8 @@
   </button>
 </section>
 
-<p id="selected">Selected: {{ seatCounter }}</p>
+<p id="selected">Selected: <span id="count" [innerHTML]="seatCounter$ | async">3</span>
+</p>
 
 
 <button class="buy" id="btn" (click)="buying$">Buy</button>

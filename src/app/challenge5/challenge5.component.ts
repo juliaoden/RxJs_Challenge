@@ -20,12 +20,14 @@ import {
   styleUrls: ['./challenge5.component.css'],
 })
 export class Challenge5Component {
+  button$ = new Subject<number>();
   timer$ = new Observable<number>();
   isVisible$ = new Observable();
   timerValue = 11;
 
   constructor() {
     this.startTimer();
+    this.timer$.subscribe(this.button$);
   }
 
   startTimer() {

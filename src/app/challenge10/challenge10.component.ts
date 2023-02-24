@@ -7,12 +7,14 @@ import { filter, fromEvent, map, Observable, tap } from 'rxjs';
   styleUrls: ['./challenge10.component.css'],
 })
 export class Challenge10Component {
-  xPos = 55;
+  xPos = 0;
+  yPos = 0;
   // circle = document.getElementById('circle')   ev.srcElement as HTMLElement
   // ? (document.getElementById('circle') as HTMLElement)
   // : document
   circle$ = fromEvent(document, 'drag')
     .pipe(
+      tap((e) => console.log(e)),
       map((ev) => {
         const e = ev as MouseEvent;
         return {
@@ -25,9 +27,13 @@ export class Challenge10Component {
       }),
       filter((el) => el.src.id === 'circle'),
       tap((el) => {
+        this.xPos = el.x;
+        this.yPos = el.y;
+        el.src.style.left = `${250}px`;
+        el.src.style.top = `${250}px`;
         //(<HTMLElement>srcEl.src).style.backgroundColor = 'red';
-        (<HTMLElement>el.src).style.left = `${this.xPos}px`;
-        this.xPos + 10;
+        // (<HTMLElement>el.src).style.left = `${this.xPos}px`;
+        // this.xPos + 10;
       })
     )
     .subscribe(console.log);
