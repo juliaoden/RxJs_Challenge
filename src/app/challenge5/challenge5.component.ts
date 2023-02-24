@@ -6,6 +6,7 @@ import {
   Observable,
   pipe,
   range,
+  share,
   Subject,
   take,
   takeWhile,
@@ -18,55 +19,25 @@ import {
   templateUrl: './challenge5.component.html',
   styleUrls: ['./challenge5.component.css'],
 })
-// @NgModule({ declarations: [timer$] })
 export class Challenge5Component {
-  // timer$ = new Subject<any>();
-  timerValue = 10;
+  timer$ = new Observable<number>();
+  isVisible$ = new Observable();
+  timerValue = 11;
 
-  timer$ = timer(0, 1000).pipe(
-    map((i) => this.timerValue - i),
-    take(this.timerValue + 1),
-    tap((e) => console.log(e))
-  );
-
-  isVisible$ = this.timer$.pipe(
-    filter((num) => num != 0),
-    map((num) => num >= 0),
-    tap((e) => console.log(e))
-  );
+  constructor() {
+    this.startTimer();
+  }
 
   startTimer() {
-    //this.isVisible$.subscribe(console.log);
+    this.timer$ = timer(0, 1000).pipe(
+      map((i) => this.timerValue - i),
+      take(this.timerValue + 1),
+      share()
+    );
+
+    this.isVisible$ = this.timer$.pipe(
+      map((num) => num > 0),
+      share()
+    );
   }
-  /*tap((number) => {
-        this.timerValue--;
-        if (this.timerValue == 0) this.timerFinished = true;
-      })
-    );*/
-
-  //timer$.subscribe(console.log);
-
-  // onButtonClick() {
-  //   this.timerFinished = false;
-  //   this.timerValue = 10;
-  //   this.startTimer();
-  // }
-
-  /*countTime(){
-    this.timeOver = false
-    const timer$ = timer(5000).pipe(
-      tap(()=>{
-        this.timeOver = true;
-      })
-    )
-
-    timer$.subscribe()
-  }
-  countTime(){
-    this.timeOver = false
-    setTimeout(() => {
-      console.log("Timer doen")
-      this.timeOver = true;
-    }, 5000)
-  }*/
 }
