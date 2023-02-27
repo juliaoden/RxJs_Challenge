@@ -1,7 +1,13 @@
-<p>Please enter your last name</p>
-<div class="toast hidden">
-    <p>This is a wonderful last name</p>
+<blockquote>
+  Make notification auto-close in 3 seconds, unless user hovers over it with a
+  cursor
+</blockquote>
+<div class="notifications">
+  <notification *ngFor="let item of service | async" [observer]="item.observer">
+    {{ item.content }}
+  </notification>
 </div>
-<form>
-    <input type="text">
-</form>
+<p>
+  <input [(ngModel)]="text" />
+  <button (click)="show()">Show</button>
+</p>

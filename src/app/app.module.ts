@@ -16,6 +16,7 @@ import { PortalComponent } from './challenge12/portal/portal.component';
 import { ModalService } from './challenge12/modal.service';
 import { LoadingService } from './challenge4/loading.service';
 import { Challenge11Component } from './challenge11/challenge11.component';
+import { NotificationModule } from './challenge11/notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,13 @@ import { Challenge11Component } from './challenge11/challenge11.component';
     Challenge12Component,
     Challenge11Component,
   ],
-  imports: [BrowserModule, FormsModule, TuiRepeatTimesModule],
   providers: [ModalService, LoadingService],
   bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    TuiRepeatTimesModule,
+    NotificationModule,
+  ],
 })
 export class AppModule {}

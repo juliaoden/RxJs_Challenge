@@ -8,7 +8,10 @@ import {
   of,
   pipe,
   Subject,
+  Subscribable,
+  filter,
 } from 'rxjs';
+import { NotificationService } from './notification/notification.service';
 
 @Component({
   selector: 'app-challenge11',
@@ -16,9 +19,11 @@ import {
   styleUrls: ['./challenge11.component.css'],
 })
 export class Challenge11Component {
-  constructor(@Inject(ElementRef) { nativeElement }: ElementRef<HTMLElement>) {
-    const toast$ = fromEvent(nativeElement, 'submit')
-      .pipe()
-      .subscribe(console.log);
+  text = 'Example';
+
+  constructor(readonly service: NotificationService) {}
+
+  show() {
+    this.service.show(this.text).subscribe();
   }
 }
