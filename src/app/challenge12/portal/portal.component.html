@@ -1,6 +1,6 @@
 <ng-content></ng-content>
 <div *ngIf="modal$$ | async as modal" class="overlay">
-    <div class="modal">
+    <div class="modal" id="modal">
         {{modal}}
 
         <button (click)="modal$$.next(null)">

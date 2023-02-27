@@ -1,5 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { distinctUntilChanged, filter, map, share, Subject, switchMap } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  share,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { LoadingService } from './loading.service';
 
 @Component({

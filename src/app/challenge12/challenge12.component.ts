@@ -7,6 +7,7 @@ import {
   take,
   Observable,
   merge,
+  map,
 } from 'rxjs';
 import { ModalService } from './modal.service';
 
@@ -16,8 +17,7 @@ import { ModalService } from './modal.service';
   styleUrls: ['./challenge12.component.css'],
 })
 export class Challenge12Component {
-  modalClose: Observable<unknown>;
-  // constructor(@Inject(ModalService) readonly modal$$: ModalService) {}
+  modalClose: Observable<unknown> | undefined;
   constructor(
     @Inject(ModalService) readonly modal$$: ModalService,
     @Inject(ElementRef) { nativeElement }: ElementRef<HTMLElement>
@@ -25,23 +25,23 @@ export class Challenge12Component {
     const esc$ = fromEvent(document, 'keydown').pipe(
       filter((ev) => (<KeyboardEvent>ev).key === 'Escape')
     );
-    const mouse$ = fromEvent(document, 'click').pipe();
 
-    const clickOutside$ = fromEvent<MouseEvent>(document, 'mousedown').pipe(
+    const click$ = fromEvent(nativeElement, 'click').pipe(
       filter(
-        ({ target }) =>
-          target instanceof Element && !nativeElement.contains(target)
-      ),
-      switchMapTo(
-        fromEvent<MouseEvent>(document, 'mouseup').pipe(
-          take(1),
-          filter(
-            ({ target }) =>
-              target instanceof Element && !nativeElement.contains(target)
-          )
-        )
+        (ev) =>
+          (<HTMLElement>ev.target).id !== 'modal' &&
+          (<HTMLElement>ev.target).id !== 'button'
       )
     );
-    this.modalClose = merge(clickOutside$, esc$);
+
+    const closeModal$ = merge(esc$, click$)
+      .pipe(
+        tap(() => {
+          modal$$.next(null);
+        })
+      )
+      .subscribe();
   }
 }
+
+//

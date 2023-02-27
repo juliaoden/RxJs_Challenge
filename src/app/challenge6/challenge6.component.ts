@@ -22,6 +22,12 @@ export class Challenge6Component {
   seats$ = new Observable<number>();
   seatCounter$ = new Observable<number>();
 
+  constructor() {
+    // setTimeout(() => {
+    //   console.log(+document.getElementById('count')!.innerHTML);
+    // }, 3000);
+  }
+
   // seatCounter$ = new Observable<number>();
 
   buying$ = fromEvent(document, 'click')
@@ -56,16 +62,17 @@ export class Challenge6Component {
 
     this.seatCounter$ = this.seats$.pipe(
       map((num: number) => {
-        console.log('num: ', num);
-        console.log('element', +document.getElementById('count')!.innerHTML);
-        console.log(
-          'rechnung: ',
-          +document.getElementById('count')!.innerHTML + num
-        );
+        // console.log('num: ', num);
+        // console.log('element', +document.getElementById('count')!.innerHTML);
+        // console.log(
+        //   'rechnung: ',
+        //   +document.getElementById('count')!.innerHTML + num
+        // );
         // return document.getElementById('count')! === undefined
         //   ? +document.getElementById('count')!.innerHTML + num
         //   : 0;
-        return +document.getElementById('count')!.innerHTML + num;
+        this.seatCounter += num;
+        return this.seatCounter;
       })
     );
     // map((el) => (el.classList.contains('seatHidden') ? 1 : -1)),

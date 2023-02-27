@@ -1,0 +1,15 @@
+.toast {
+  color: white;
+  background-color: #57ea00;
+  width: 200px;
+  height: 50px;
+  margin-bottom: 1rem;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}

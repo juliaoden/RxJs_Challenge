@@ -9,6 +9,7 @@
 </p>
 
 
-<div class="color-picker">
-    <div draggable="true" class="circle" id="circle" [style.left.%]="25" [style.top.%]="25"></div>
+<div class="color-picker" id="parent">
+    <div draggable="true" class="circle" id="circle" [style.left.px]="circleLeft$ | async"
+        [style.top.px]="circleTop$ | async"></div>
 </div>
