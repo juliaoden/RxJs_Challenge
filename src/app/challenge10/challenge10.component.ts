@@ -8,7 +8,10 @@ import {
   Observable,
   pipe,
   skipLast,
+  startWith,
+  switchMap,
   take,
+  takeUntil,
   tap,
   timeout,
 } from 'rxjs';
@@ -24,8 +27,10 @@ export class Challenge10Component implements AfterViewInit {
   parentElLeft: number = 0;
   parentElTop: number = 0;
   CONTAINERWIDTH = 200;
-  CONTAINERHIGHT = 200;
+  CONTAINERHEIGHT = 200;
   HUE = 285;
+  clamp = (value: number, min: number, max: number): number =>
+    Math.min(max, Math.max(min, value));
 
   ngAfterViewInit(): void {
     this.parentEl = document.getElementById('parent')!;
@@ -33,36 +38,35 @@ export class Challenge10Component implements AfterViewInit {
     this.parentElTop = this.parentEl.getBoundingClientRect().top;
   }
 
-  circle$ = fromEvent(document, 'drag').pipe(
-    skipLast(1),
-    map((ev) => {
-      const e = ev as MouseEvent;
-      return {
-        src: e.target as HTMLElement,
-        mouseY: e.clientY,
-        mouseX: e.clientX,
-      };
-    }),
-    filter(
-      (el) =>
-        el.src.id === 'circle' &&
-        el.mouseX > this.parentElLeft &&
-        el.mouseY > this.parentElTop &&
-        el.mouseX < this.parentElLeft + this.CONTAINERWIDTH &&
-        el.mouseY < this.parentElTop + this.CONTAINERHIGHT
-    )
+  mouseDown$ = fromEvent(document, 'mousedown');
+  mouseUp$ = fromEvent(document, 'mouseup');
+  mouseMove$ = fromEvent(document, 'mousemove');
+
+  coordinates$ = this.mouseDown$.pipe(
+    filter((ev) => (<HTMLElement>ev.target).id === 'parent'),
+    switchMap((down) =>
+      this.mouseMove$.pipe(
+        map((move) => [(<MouseEvent>move).offsetX, (<MouseEvent>move).offsetY]),
+        startWith([(<MouseEvent>down).offsetX, (<MouseEvent>down).offsetY]),
+        filter(
+          ([x, y]) =>
+            x < this.CONTAINERWIDTH &&
+            y < this.CONTAINERHEIGHT &&
+            x >= 0 &&
+            y >= 0
+        ),
+        takeUntil(this.mouseUp$)
+      )
+    ),
+    startWith([42, 42])
   );
 
-  circleLeft$ = this.circle$.pipe(map((el) => el.mouseX - this.parentElLeft));
-  circleTop$ = this.circle$.pipe(map((el) => el.mouseY - this.parentElTop));
-
-  hsv$: Observable<[number, number, number]> = this.circleLeft$.pipe(
-    combineLatestWith(this.circleTop$),
+  hsv$: Observable<[number, number, number]> = this.coordinates$.pipe(
     map((coords) => [
       this.HUE,
       +(coords[0] / this.CONTAINERWIDTH).toFixed(2),
       +(
-        ((this.CONTAINERHIGHT - coords[1]) / this.CONTAINERHIGHT) *
+        ((this.CONTAINERHEIGHT - coords[1]) / this.CONTAINERHEIGHT) *
         255
       ).toFixed(2),
     ])

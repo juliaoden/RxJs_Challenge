@@ -7,12 +7,15 @@
     <strong>Additional task:</strong> show the HEX code of selected color under
     palette
 </p>
+<div class="color-picker" id="parent" *ngIf="coordinates$ | async as coordinates">
+    <div class="circle" id="circle" [style.left.px]="coordinates[0]" [style.top.px]="coordinates[1]"></div>
+</div>
 
-
+<!-- 
 <div class="color-picker" id="parent">
     <div draggable="true" class="circle" id="circle" [style.left.px]="circleLeft$ | async"
         [style.top.px]="circleTop$ | async"></div>
-</div>
+</div> -->
 <p>HSV: {{ hsv$ | async }}</p>
 <p>RGB: {{ rgb$ | async }}</p>
 <p>HEX: <span *ngIf="hex$ | async"> #{{hex$ | async}} </span></p>
