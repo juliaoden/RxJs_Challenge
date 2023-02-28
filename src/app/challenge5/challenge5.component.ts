@@ -24,7 +24,7 @@ export class Challenge5Component {
   button$ = new Subject<number>();
   timer$ = new Observable<number>();
   isVisible$ = new Observable();
-  timerValue = 6;
+  timerValue = 5;
 
   constructor() {
     this.startTimer();
@@ -33,13 +33,13 @@ export class Challenge5Component {
 
   startTimer() {
     this.timer$ = timer(0, 1000).pipe(
-      map((i) => this.timerValue - i),
-      takeWhile((i) => i >= 0),
-      tap((e) => console.log(e)),
+      map((sec) => this.timerValue - sec),
+      takeWhile((num) => num >= 0),
       share()
     );
 
     this.isVisible$ = this.timer$.pipe(
+      startWith(true),
       map((num) => num > 0),
       share()
     );

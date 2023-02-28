@@ -6,6 +6,7 @@ import {
   map,
   Observable,
   pipe,
+  scan,
   switchMap,
   take,
   tap,
@@ -53,6 +54,7 @@ export class Challenge6Component {
     );
 
     this.seatCounter$ = this.seats$.pipe(
+      // scan((sum, n) => sum + n),
       map((num: number) => {
         this.seatCounter += num;
         return this.seatCounter;
