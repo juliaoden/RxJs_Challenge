@@ -1,8 +1,4 @@
 <p>Create a countdown and a button to restart it</p>
 
-<p>Frage: Warum ist die erste Zahl, die reingeschrieben wird timerValue-1?</p>
-
 <p *ngIf="isVisible$ | async">Code can be resended in {{ timer$ | async }} second(s)</p>
 <button [disabled]="isVisible$ | async" (click)="startTimer()">Resend code</button>
-
-<!-- button$.next() -->

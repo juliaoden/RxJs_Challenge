@@ -7,6 +7,7 @@ import {
   pipe,
   range,
   share,
+  startWith,
   Subject,
   take,
   takeWhile,
@@ -23,7 +24,7 @@ export class Challenge5Component {
   button$ = new Subject<number>();
   timer$ = new Observable<number>();
   isVisible$ = new Observable();
-  timerValue = 11;
+  timerValue = 6;
 
   constructor() {
     this.startTimer();
@@ -33,7 +34,8 @@ export class Challenge5Component {
   startTimer() {
     this.timer$ = timer(0, 1000).pipe(
       map((i) => this.timerValue - i),
-      take(this.timerValue + 1),
+      takeWhile((i) => i >= 0),
+      tap((e) => console.log(e)),
       share()
     );
 

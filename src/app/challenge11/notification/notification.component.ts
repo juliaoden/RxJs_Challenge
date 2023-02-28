@@ -11,13 +11,13 @@ export class NotificationComponent<T> {
   @Input()
   observer!: Observer<T>;
 
-  readonly mouseenter$ = fromEvent(this.elementRef.nativeElement, 'mouseenter');
+  readonly mouseEnter$ = fromEvent(this.elementRef.nativeElement, 'mouseenter');
 
-  readonly mouseleave$ = fromEvent(this.elementRef.nativeElement, 'mouseleave');
+  readonly mouseLeave$ = fromEvent(this.elementRef.nativeElement, 'mouseleave');
 
   readonly close$ = timer(3000).pipe(
-    takeUntil(this.mouseenter$),
-    repeatWhen(() => this.mouseleave$),
+    takeUntil(this.mouseEnter$),
+    repeatWhen(() => this.mouseLeave$),
     tap(this.close.bind(this))
   );
 
