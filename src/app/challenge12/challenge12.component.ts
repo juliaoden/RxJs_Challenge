@@ -34,7 +34,7 @@ export class Challenge12Component {
       )
     );
 
-    const closeModal$ = merge(esc$, click$)
+    merge(esc$, click$)
       .pipe(
         tap(() => {
           modal$$.next(null);

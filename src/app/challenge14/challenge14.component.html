@@ -1,0 +1,20 @@
+<blockquote>
+    You have an area with folders. Allow user to select several folders with their mouse dragging (like on desktop).
+
+    <p><code>div</code>
+        element with class selected is an example of how selection can look like.
+    </p>
+</blockquote>
+
+<p>
+    Folders selected: ...
+</p>
+
+<div class="folders" #area>
+    <div *ngFor="let folder of folders" class="folder">
+        <img
+            src="https://www.flaticon.com/svg/vstatic/svg/715/715563.svg?token=exp=1617689901~hmac=02f717bf4f01740f1dc6c1223427a692" />
+        {{folder}}
+    </div>
+    <div class="selected"></div>
+</div>

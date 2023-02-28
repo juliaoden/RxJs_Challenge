@@ -1,12 +1,17 @@
+import { NgIfContext } from '@angular/common';
 import { HtmlParser } from '@angular/compiler';
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import {
   filter,
   fromEvent,
   map,
+  mergeMap,
   Observable,
+  of,
   pipe,
   scan,
+  startWith,
+  Subject,
   switchMap,
   take,
   tap,
@@ -22,6 +27,8 @@ export class Challenge6Component {
   seatCounter = 0;
   seats$ = new Observable<number>();
   seatCounter$ = new Observable<number>();
+
+  constructor() {}
 
   buying$ = fromEvent(document, 'click')
     .pipe(
@@ -43,6 +50,7 @@ export class Challenge6Component {
       map((el) => el.target as HTMLButtonElement),
       take(1),
       map((el) => {
+        console.log(el);
         if (!el.classList.contains('seatHidden')) {
           el.classList.add('seatHidden');
           return 1;

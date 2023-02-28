@@ -17,6 +17,7 @@ import { ModalService } from './challenge12/modal.service';
 import { LoadingService } from './challenge4/loading.service';
 import { Challenge11Component } from './challenge11/challenge11.component';
 import { NotificationModule } from './challenge11/notification/notification.module';
+import { Challenge14Component } from './challenge14/challenge14.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NotificationModule } from './challenge11/notification/notification.modu
     Challenge10Component,
     Challenge12Component,
     Challenge11Component,
+    Challenge14Component,
   ],
   providers: [ModalService, LoadingService],
   bootstrap: [AppComponent],
